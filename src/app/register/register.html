@@ -1,0 +1,103 @@
+<!-- <div class="col-md-12">
+  <div class="card card-container p-4">
+    <h3>Update Password</h3>
+    <p class="text-muted">You are using a temporary password. Please set a new one.</p>
+
+    @if (!isSuccessful) {
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-group mb-3">
+        <label>Current Password</label>
+        <input type="password" class="form-control" name="currentPassword"
+               [(ngModel)]="form.currentPassword" required #currPw="ngModel" />
+        @if (f.submitted && currPw.errors) { <div class="text-danger">Current password is required</div> }
+      </div>
+
+      <div class="form-group mb-3">
+        <label>New Password</label>
+        <input type="password" class="form-control" name="newPassword"
+               [(ngModel)]="form.newPassword" required minlength="6" #newPw="ngModel" />
+        @if (f.submitted && newPw.errors) { <div class="text-danger">New password must be 6+ chars</div> }
+      </div>
+
+      <div class="form-group mb-4">
+        <label>Confirm New Password</label>
+        <input type="password" class="form-control" name="confirmationPassword"
+               [(ngModel)]="form.confirmationPassword" required #confPw="ngModel" />
+      </div>
+
+      <button class="btn btn-primary btn-block w-100">Update and Continue</button>
+
+      @if (f.submitted && isChangeFailed) {
+        <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      }
+    </form>
+    } @else {
+      <div class="alert alert-success">
+        Password changed successfully! Redirecting to dashboard...
+      </div>
+    }
+  </div>
+</div> -->
+<div class="reset-wrapper">
+  <div class="reset-container">
+    <h1 class="reset-title">Reset account password</h1>
+    <p class="reset-subtitle">Enter a new password for {{ form.username || 'your account' }}</p>
+
+    @if (!isSuccessful) {
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-group mb-3">
+        <input
+          type="password"
+          class="form-control reset-input"
+          name="currentPassword"
+          placeholder="Current password"
+          [(ngModel)]="form.currentPassword"
+          required
+          #currPw="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && currPw.errors }" />
+      </div>
+
+      <div class="form-group mb-3">
+        <input
+          type="password"
+          class="form-control reset-input"
+          name="newPassword"
+          placeholder="Password"
+          [(ngModel)]="form.newPassword"
+          required
+          minlength="6"
+          #newPw="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && newPw.errors }" />
+      </div>
+
+      <div class="form-group mb-4">
+        <input
+          type="password"
+          class="form-control reset-input"
+          name="confirmationPassword"
+          placeholder="Confirm password"
+          [(ngModel)]="form.confirmationPassword"
+          required
+          #confPw="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && confPw.errors }" />
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-reset">Reset password</button>
+      </div>
+
+      @if (f.submitted && (currPw.errors || newPw.errors || isChangeFailed)) {
+        <div class="alert alert-danger mt-3 small">
+          {{ isChangeFailed ? errorMessage : 'Please check your entries.' }}
+        </div>
+      }
+    </form>
+    } @else {
+      <div class="alert alert-success text-center">
+        Password changed successfully! Redirecting...
+      </div>
+    }
+  </div>
+</div>

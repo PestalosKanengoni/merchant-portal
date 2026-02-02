@@ -1,0 +1,120 @@
+<!-- <div class="otp-container">
+      <h2>Enter OTP</h2>
+
+      @if (errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+}
+
+      <input [(ngModel)]="otpValue"
+      placeholder="Enter 6-digit code"
+      maxlength="6"
+  (input)="clearError()">
+      <button (click)="verify()">Verify & Login</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </div> -->
+
+    <!-- <div class="otp-container">
+  <div class="otp-card">
+    <div class="otp-header">
+      <div class="icon-wrapper">
+        <i class="bi bi-shield-lock-fill"></i>
+      </div>
+      <h2>Verify OTP</h2>
+      <p class="subtitle">Enter the 6-digit code sent to your device</p>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-message">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        {{ errorMessage }}
+      </div>
+    }
+
+    <div class="otp-input-wrapper">
+      <input
+        [(ngModel)]="otpValue"
+        type="text"
+        placeholder="000000"
+        maxlength="6"
+        class="otp-input"
+        (input)="clearError()"
+        autocomplete="off">
+    </div>
+
+    <button (click)="verify()" class="verify-btn">
+      <span>Verify & Continue</span>
+      <i class="bi bi-arrow-right"></i>
+    </button>
+
+    <div class="resend-section">
+      <p>Didn't receive the code? <a href="#" class="resend-link">Resend OTP</a></p>
+    </div>
+  </div>
+</div> -->
+
+<div class="otp-wrapper d-flex flex-column">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="portal-heading fw-bold"></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="container flex-grow-1 d-flex align-items-center">
+    <div class="row align-items-center w-100 justify-content-center">
+
+      <div class="col-md-6 text-center d-none d-md-block">
+        <div class="illustration-container">
+          <div class="circle-bg">
+            <img src="/afcholdings.png" alt="OTP Verification" class="img-fluid">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-5">
+        <div class="otp-form-container">
+          <div class="otp-header text-center">
+            <div class="icon-wrapper">
+              <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h2 class="otp-title">Verify OTP</h2>
+            <p class="subtitle">Enter the 6-digit code sent to your device</p>
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="otp-input-wrapper">
+            <input
+              [(ngModel)]="otpValue"
+              type="text"
+              placeholder="000000"
+              maxlength="6"
+              class="form-control otp-input"
+              (input)="clearError()"
+              autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <button (click)="verify()" class="btn btn-verify rounded-pill w-100">
+              <span>Verify & Continue</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+
+          <div class="resend-section text-center">
+            <p>Didn't receive the code? <a href="#" class="resend-link">Resend OTP</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

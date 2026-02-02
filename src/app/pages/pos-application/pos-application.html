@@ -1,0 +1,362 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top mb-4 shadow-sm">
+  <div class="container-fluid px-4">
+    <div class="d-flex align-items-center">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none text-dark p-0 me-3"
+        (click)="goBack()"
+        title="Go Back">
+        <i class="bi bi-arrow-left fs-4"></i>
+      </button>
+      <div>
+        <h5 class="mb-0 fw-bold">Merchant Portal</h5>
+        <small class="text-muted">Account Management</small>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <div class="vr mx-2 d-none d-md-block" style="height: 30px;"></div> <div class="user-profile d-flex align-items-center gap-2">
+        <div class="avatar-circle">
+          {{ userEmail.charAt(0).toUpperCase() }}
+        </div>
+        <div class="d-none d-md-block">
+          <span class="d-block fw-semibold lh-1" style="font-size: 0.9rem;">{{ userEmail }}</span>
+          <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill" style="font-size: 0.7rem;">
+            Sole Trader
+          </span>
+        </div>
+      </div>
+
+      <button class="btn btn-outline-danger btn-sm rounded-pill px-3 ms-2" (click)="onLogout()">
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="pos-application-container">
+  <!-- <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-end align-items-center mb-3 gap-3">
+
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="goBack()">
+          <i class="bi bi-arrow-left me-1"></i>Back
+        </button>
+
+
+        <div class="text-end">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-circle fs-4"></i>
+            <div>
+              <strong class="d-block">{{ userEmail }}</strong>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        </button>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="top-navigation">
+    <button type="button" class="btn-logout" (click)="onLogout()">
+      <span class="icon">Logout</span>
+      <i class="fa fa-sign-out"></i> </button>
+  </div> -->
+  <div class="header">
+    <h2>POS Application Form</h2>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Loading form data...</p>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-error">
+      <span class="alert-icon">⚠️</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="alert alert-success">
+      <span class="alert-icon">✓</span>
+      <span>{{ successMessage }}</span>
+    </div>
+  }
+
+  @if (!isLoading) {
+    <form #posForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div class="requests-section">
+        <div class="section-header">
+          <h3>POS Requests</h3>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="addRequest()"
+            [disabled]="isSubmitting">
+            + Add Another Request
+          </button>
+        </div>
+
+        @for (request of posApplicationForm.requests; track $index) {
+          <div class="request-card">
+            <div class="card-header">
+              <h4>Request #{{ $index + 1 }}</h4>
+
+              @if (posApplicationForm.requests.length > 1) {
+                <button
+                  type="button"
+                  class="btn btn-danger-small"
+                  (click)="removeRequest($index)"
+                  [disabled]="isSubmitting">
+                  Remove
+                </button>
+              }
+            </div>
+
+            <div class="card-body">
+              <!-- Row 1: Trade Name, MCC/ZWG Account, Select Account/USD Account -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label [attr.for]="'tradeName-' + $index">
+                    Trade Name <span class="required">*</span>
+                  </label>
+                  <input
+                    [id]="'tradeName-' + $index"
+                    type="text"
+                    [name]="'tradeName-' + $index"
+                    [(ngModel)]="request.tradeName"
+                    placeholder="Enter trade name"
+                    [class.error]="hasError('tradeName', $index)" />
+
+                  @if (hasError('tradeName', $index)) {
+                    <div class="error-message">
+                      {{ getErrorMessage('tradeName', $index) }}
+                    </div>
+                  }
+                </div>
+
+                <!-- Second column: MCC for non-multicurrency OR ZWG Account for multicurrency -->
+                <div class="form-group">
+                  @if (!isMulticurrencyCategory($index)) {
+                    <!-- Show MCC for standalone categories -->
+                    <label [attr.for]="'merchantCategoryCode-' + $index">
+                      Merchant Category Code <span class="required">*</span>
+                    </label>
+                    <select
+                      [id]="'merchantCategoryCode-' + $index"
+                      [name]="'merchantCategoryCode-' + $index"
+                      [(ngModel)]="request.merchantCategoryCode"
+                      [class.error]="hasError('merchantCategoryCode', $index)">
+                      <option value="">--Select MCC--</option>
+                      @for (mcc of merchantCategoryCodes; track mcc.code) {
+                        <option [value]="mcc.code">
+                          {{ mcc.name }}
+                        </option>
+                      }
+                    </select>
+
+                    @if (hasError('merchantCategoryCode', $index)) {
+                      <div class="error-message">
+                        {{ getErrorMessage('merchantCategoryCode', $index) }}
+                      </div>
+                    }
+                  } @else {
+                    <!-- Show ZWG Account for multicurrency -->
+                    <label [attr.for]="'zwgAccountId-' + $index">
+                      ZWG Account <span class="required">*</span>
+                    </label>
+                    <select
+                      [id]="'zwgAccountId-' + $index"
+                      [name]="'zwgAccountId-' + $index"
+                      [value]="getSelectedZwgAccountId($index)"
+                      (change)="onZwgAccountSelect($event, $index)"
+                      [class.error]="hasError('accountIds', $index)">
+                      <option value="">-- Select ZWG Account --</option>
+                      @for (account of getFilteredAccounts($index, 'ZWG'); track account.id) {
+                        <option [value]="account.id">
+                          {{ account.accountNumber }}
+
+                        </option>
+                      }
+                    </select>
+                  }
+                </div>
+
+                <!-- Third column: Single Account for standalone OR USD Account for multicurrency -->
+                <div class="form-group">
+                  @if (!isMulticurrencyCategory($index) && request.categoryId) {
+                    <!-- Show single account selection for standalone -->
+                    <label [attr.for]="'accountId-' + $index">
+                      Select Account <span class="required">*</span>
+                    </label>
+                    <select
+                      [id]="'accountId-' + $index"
+                      [name]="'accountId-' + $index"
+                      [value]="request.accountIds[0] || ''"
+                      (change)="onSingleAccountSelect($event, $index)"
+                      [class.error]="hasError('accountIds', $index)">
+                      <option value="">-- Select Account --</option>
+                      @for (account of getFilteredAccounts($index); track account.id) {
+                        <option [value]="account.id">
+                          {{ account.accountNumber }} - {{ account.currency }}
+                        </option>
+                      }
+                    </select>
+
+                    @if (hasError('accountIds', $index)) {
+                      <div class="error-message">
+                        {{ getErrorMessage('accountIds', $index) }}
+                      </div>
+                    }
+                  } @else if (isMulticurrencyCategory($index)) {
+                    <!-- Show USD Account for multicurrency -->
+                    <label [attr.for]="'usdAccountId-' + $index">
+                      USD Account <span class="required">*</span>
+                    </label>
+                    <select
+                      [id]="'usdAccountId-' + $index"
+                      [name]="'usdAccountId-' + $index"
+                      [value]="getSelectedUsdAccountId($index)"
+                      (change)="onUsdAccountSelect($event, $index)"
+                      [class.error]="hasError('accountIds', $index)">
+                      <option value="">-- Select USD Account --</option>
+                      @for (account of getFilteredAccounts($index, 'USD'); track account.id) {
+                        <option [value]="account.id">
+                          {{ account.accountNumber }}
+
+                        </option>
+                      }
+                    </select>
+                  }
+
+                  @if (isMulticurrencyCategory($index)) {
+                    <div class="multicurrency-note" style="margin-top: 8px; font-size: 0.9em; color: #666;">
+                      <strong>Note:</strong> This category requires both ZWG and USD accounts
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Row 2: Location and Category -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label [attr.for]="'location-' + $index">
+                    Location <span class="required">*</span>
+                  </label>
+                  <input
+                    [id]="'location-' + $index"
+                    type="text"
+                    [name]="'location-' + $index"
+                    [(ngModel)]="request.location"
+                    placeholder="Enter location"
+                    [class.error]="hasError('location', $index)" />
+
+                  @if (hasError('location', $index)) {
+                    <div class="error-message">
+                      {{ getErrorMessage('location', $index) }}
+                    </div>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label [attr.for]="'categoryId-' + $index">
+                    Category <span class="required">*</span>
+                  </label>
+                  <select
+                    [id]="'categoryId-' + $index"
+                    [name]="'categoryId-' + $index"
+                    [(ngModel)]="request.categoryId"
+                    (change)="onCategoryChange($index)"
+                    [class.error]="hasError('categoryId', $index)">
+                    <option value="">-- Select Category --</option>
+                    @for (category of categories; track category.id) {
+                      <option [value]="category.id">
+                        {{ category.description }}
+                      </option>
+                    }
+                  </select>
+
+                  @if (hasError('categoryId', $index)) {
+                    <div class="error-message">
+                      {{ getErrorMessage('categoryId', $index) }}
+                    </div>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <!-- Empty column for layout consistency -->
+                </div>
+              </div>
+
+              <!-- Row 3: Merchant Category Code (full width) - Only show for Multicurrency -->
+              @if (isMulticurrencyCategory($index)) {
+                <div class="form-group full-width">
+                  <label [attr.for]="'merchantCategoryCode-' + $index">
+                    Merchant Category Code <span class="required">*</span>
+                  </label>
+                  <select
+                    [id]="'merchantCategoryCode-' + $index"
+                    [name]="'merchantCategoryCode-' + $index"
+                    [(ngModel)]="request.merchantCategoryCode"
+                    [class.error]="hasError('merchantCategoryCode', $index)">
+                    <option value="">--Select MCC--</option>
+                    @for (mcc of merchantCategoryCodes; track mcc.code) {
+                      <option [value]="mcc.code">
+                        {{ mcc.name }}
+                      </option>
+                    }
+                  </select>
+
+                  @if (hasError('merchantCategoryCode', $index)) {
+                    <div class="error-message">
+                      {{ getErrorMessage('merchantCategoryCode', $index) }}
+                    </div>
+                  }
+                </div>
+              }
+
+              <!-- Error display for account validation (multicurrency) -->
+              @if (isMulticurrencyCategory($index) && hasError('accountIds', $index)) {
+                <div class="error-message full-width">
+                  {{ getErrorMessage('accountIds', $index) }}
+                </div>
+              }
+
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="isSubmitting">
+          Reset Form
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-success btn-sm"
+          [disabled]="isSubmitting">
+          @if (!isSubmitting) {
+            <span>Submit Application</span>
+          } @else {
+            <span>
+              <span class="spinner-small"></span> Submitting...
+            </span>
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>

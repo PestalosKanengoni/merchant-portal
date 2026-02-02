@@ -1,0 +1,54 @@
+.action-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.action-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.icon-wrapper {
+  font-size: 3rem;
+  color: #004a99; /* Use your AFC blue */
+}
+
+.icon-wrapper.secondary-color {
+  color: #28a745; /* A different color for distinction */
+}
+
+.welcome-text {
+  font-weight: 700;
+  color: #333;
+}
+/* Avatar styling using the user's first initial */
+.avatar-circle {
+  width: 35px;
+  height: 35px;
+  background-color: #e9ecef;
+  color: #0d6efd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 1px solid #dee2e6;
+}
+
+.account-linking-container {
+  max-width: 900px;
+}
+
+/* Make the Back button hover effect subtle */
+.btn-link:hover {
+  color: #0d6efd !important;
+  transform: translateX(-3px);
+  transition: transform 0.2s ease;
+}
+
+/* Styling for the new Bootstrap 5.3 success-subtle badge if not on latest version */
+.bg-success-subtle {
+  background-color: #d1e7dd !important;
+}

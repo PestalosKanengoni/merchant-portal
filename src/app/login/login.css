@@ -1,0 +1,82 @@
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-title {
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Circular Background for Laptop Image */
+.circle-bg {
+  background: #f2f2f2;
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden; /* Ensures nothing spills out */
+  padding: 40px;
+}
+
+/* Custom Rounded Inputs */
+.custom-input {
+  position: relative;
+}
+
+.custom-input .form-control {
+  background-color: #e6e6e6;
+  border: none;
+  padding: 12px 20px 12px 45px; /* Leave space for icon */
+  font-size: 15px;
+}
+
+.custom-input .input-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  z-index: 10;
+}
+
+/* Green Login Button */
+.btn-login {
+  background-color: #57b846;
+  color: white;
+  padding: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Links */
+.login-footer p {
+  font-size: 13px;
+  color: #999;
+}
+
+.create-account-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.create-account-link:hover {
+  color: #57b846;
+}

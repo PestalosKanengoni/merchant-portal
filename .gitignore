@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/.angular/
 
 # Node
 /node_modules
@@ -20,6 +21,10 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
+# Environment secrets
+.env
+src/environments/environment.development.ts
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json
@@ -28,6 +33,13 @@ yarn-error.log
 !.vscode/extensions.json
 !.vscode/mcp.json
 .history/*
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
 
 # Miscellaneous
 /.angular/cache

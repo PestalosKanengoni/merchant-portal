@@ -1,0 +1,64 @@
+.reset-wrapper {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.reset-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+  text-align: center;
+}
+
+.reset-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 25px;
+}
+
+.reset-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 35px;
+}
+
+/* Rectangular Inputs */
+.reset-input {
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  padding: 12px 15px !important;
+  height: auto !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+
+.reset-input:focus {
+  border-color: #4a5d5e !important;
+  background-color: #fcfcfc;
+}
+
+/* Dark Slate Button */
+.btn-reset {
+  background-color: #445454; /* The dark slate color from your image */
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-reset:hover {
+  background-color: #333f3f;
+  color: white;
+}
+
+/* Error Styling */
+.is-invalid {
+  border: 1px solid #dc3545 !important;
+}
