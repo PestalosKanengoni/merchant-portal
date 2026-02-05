@@ -568,7 +568,8 @@ export class PosApplication implements OnInit {
         location: '',
         merchantCategoryCode: '',
         accountIds: [] as string[],
-        remarks: ''
+        remarks: '',
+        numberOfMachines: 1
       }
     ]
   };
@@ -610,7 +611,8 @@ export class PosApplication implements OnInit {
       tradeName: '',
       location: '',
       merchantCategoryCode: '',
-      accountIds: ''
+      accountIds: '',
+      numberOfMachines:''
     }));
   }
 
@@ -696,7 +698,8 @@ export class PosApplication implements OnInit {
       location: '',
       merchantCategoryCode: '',
       accountIds: [],
-      remarks: ''
+      remarks: '',
+      numberOfMachines: 1
     });
 
     // Add validation errors for new request
@@ -705,7 +708,8 @@ export class PosApplication implements OnInit {
       tradeName: '',
       location: '',
       merchantCategoryCode: '',
-      accountIds: ''
+      accountIds: '',
+      numberOfMachines:''
     });
   }
 
@@ -754,7 +758,7 @@ export class PosApplication implements OnInit {
     // Build the application request with CORRECT structure
     const application: PosApplicationRequest = {
       remarks: this.posApplicationForm.remarks || '',
-      requests: this.posApplicationForm.requests.map((request) => {
+      requests: this.posApplicationForm.requests.flatMap((request) => {
         const selectedCategory = this.getSelectedCategory(request.categoryId);
         const selectedAccounts = this.getSelectedAccounts(request.accountIds);
 
@@ -778,10 +782,15 @@ export class PosApplication implements OnInit {
           remarks: request.remarks || ''
         };
 
+         // Create multiple copies based on numberOfMachines
+        const numberOfMachines = request.numberOfMachines || 1;
+        const duplicatedRequests = Array(numberOfMachines).fill(null).map(() => ({...posRequest}));
+
         console.log('🔍 Individual request object:', posRequest);
         console.log('🔍 Individual request JSON:', JSON.stringify(posRequest, null, 2));
 
-        return posRequest;
+        // return posRequest;
+        return duplicatedRequests;
       })
     };
 
@@ -847,7 +856,8 @@ export class PosApplication implements OnInit {
           location: '',
           merchantCategoryCode: '',
           accountIds: [],
-          remarks: ''
+          remarks: '',
+          numberOfMachines: 1
         }
       ]
     };
@@ -1050,7 +1060,8 @@ export class PosApplication implements OnInit {
       tradeName: '',
       location: '',
       merchantCategoryCode: '',
-      accountIds: ''
+      accountIds: '',
+      numberOfMachines:''
     }));
 
     // Validate each request
@@ -1076,6 +1087,12 @@ export class PosApplication implements OnInit {
       // Validate merchant category code
       if (!request.merchantCategoryCode || request.merchantCategoryCode === '') {
         this.validationErrors.requests[index].merchantCategoryCode = 'Merchant Category Code is required';
+        isValid = false;
+      }
+
+      // Validate number of machines
+      if (!request.numberOfMachines || request.numberOfMachines < 1 || request.numberOfMachines > 50) {
+        this.validationErrors.requests[index].numberOfMachines = 'Number of machines must be between 1 and 50';
         isValid = false;
       }
 
