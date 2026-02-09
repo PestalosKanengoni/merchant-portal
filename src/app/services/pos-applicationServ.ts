@@ -102,7 +102,7 @@ export class PosApplicationServ {
 
     return this.http.post<ApiResponse<any>>(url, application, { headers: this.getHeaders() }).pipe(
       map(response => {
-        console.log('POS application submitted successfully:', response);
+        console.log('POS application submitted:', response);
         return response;
       }),
       catchError(error => {

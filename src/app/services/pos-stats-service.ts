@@ -35,29 +35,7 @@ export interface ChartData {
 export class PosStatsService {
   constructor() { }
 
-  /**
-   * Fetch dashboard statistics
-   * In a real application, this would call your backend API
-   */
-  // getDashboardStats(dateRange: string): Observable<PosStats> {
-  //   // Simulate API call
-  //   const stats: PosStats = {
-  //     totalRevenue: 45280,
-  //     totalTransactions: 2847,
-  //     activeTerminals: 12,
-  //     avgTransactionValue: 15.91,
-  //     revenueChange: 12.5,
-  //     transactionsChange: 8.3,
-  //     terminalsChange: 2,
-  //     avgValueChange: 3.7
-  //   };
 
-  //   return of(stats).pipe(delay(300));
-  // }
-
-  /**
-   * Fetch terminal performance data
-   */
   getTerminals(): Observable<Terminal[]> {
     const terminals: Terminal[] = [
       { id: 'T001', name: 'Terminal 1 - Checkout A', transactions: 428, revenue: 6820, status: 'active' },

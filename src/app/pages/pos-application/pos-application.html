@@ -10,7 +10,7 @@
       </button>
       <div>
         <h5 class="mb-0 fw-bold">Merchant Portal</h5>
-        <small class="text-muted">Account Management</small>
+        <!-- <small class="text-muted">Account Management</small> -->
       </div>
     </div>
 
@@ -36,9 +36,9 @@
 </nav>
 
 <div class="pos-application-container">
-  <div class="header">
-    <h2>POS Application Form</h2>
-  </div>
+  <!-- <div class="header"> -->
+    <!-- <h2>POS Application Form</h2> -->
+  <!-- </div> -->
 
   @if (isLoading) {
     <div class="loading-indicator">
@@ -92,14 +92,15 @@
               }
             </div>
 
-            <div class="card-body">
+            <!-- old -->
+                                     <!-- <div class="card-body"> -->
               <!-- Row 1: Trade Name, MCC/ZWG Account, Select Account/USD Account -->
-              <div class="form-row">
-                <div class="form-group">
-                  <label [attr.for]="'tradeName-' + $index">
+              <!-- <div class="form-row"> -->
+                <!-- <div class="form-group"> -->
+                  <!-- <label [attr.for]="'tradeName-' + $index">
                     Trade Name <span class="required">*</span>
-                  </label>
-                  <input
+                  </label> -->
+                  <!-- <input
                     [id]="'tradeName-' + $index"
                     type="text"
                     [name]="'tradeName-' + $index"
@@ -111,17 +112,17 @@
                     <div class="error-message">
                       {{ getErrorMessage('tradeName', $index) }}
                     </div>
-                  }
-                </div>
+                  } -->
+                <!-- </div> -->
 
                 <!-- Second column: MCC for non-multicurrency OR ZWG Account for multicurrency -->
-                <div class="form-group">
-                  @if (!isMulticurrencyCategory($index)) {
+                <!-- <div class="form-group"> -->
+                  <!-- @if (!isMulticurrencyCategory($index)) { -->
                     <!-- Show MCC for standalone categories -->
-                    <label [attr.for]="'merchantCategoryCode-' + $index">
+                    <!-- <label [attr.for]="'merchantCategoryCode-' + $index">
                       Merchant Category Code <span class="required">*</span>
-                    </label>
-                    <select
+                    </label> -->
+                    <!-- <select
                       [id]="'merchantCategoryCode-' + $index"
                       [name]="'merchantCategoryCode-' + $index"
                       [(ngModel)]="request.merchantCategoryCode"
@@ -132,19 +133,19 @@
                           {{ mcc.name }}
                         </option>
                       }
-                    </select>
+                    </select> -->
 
-                    @if (hasError('merchantCategoryCode', $index)) {
-                      <div class="error-message">
+                    <!-- @if (hasError('merchantCategoryCode', $index)) { -->
+                      <!-- <div class="error-message">
                         {{ getErrorMessage('merchantCategoryCode', $index) }}
-                      </div>
-                    }
-                  } @else {
+                      </div> -->
+                    <!-- } -->
+                  <!-- } @else { -->
                     <!-- Show ZWG Account for multicurrency -->
-                    <label [attr.for]="'zwgAccountId-' + $index">
+                    <!-- <label [attr.for]="'zwgAccountId-' + $index">
                       ZWG Account <span class="required">*</span>
-                    </label>
-                    <select
+                    </label> -->
+                    <!-- <select
                       [id]="'zwgAccountId-' + $index"
                       [name]="'zwgAccountId-' + $index"
                       [value]="getSelectedZwgAccountId($index)"
@@ -156,18 +157,18 @@
                           {{ account.accountNumber }}
                         </option>
                       }
-                    </select>
-                  }
-                </div>
+                    </select> -->
+                  <!-- }
+                </div> -->
 
                 <!-- Third column: Single Account for standalone OR USD Account for multicurrency -->
-                <div class="form-group">
-                  @if (!isMulticurrencyCategory($index) && request.categoryId) {
+                <!-- <div class="form-group"> -->
+                  <!-- @if (!isMulticurrencyCategory($index) && request.categoryId) { -->
                     <!-- Show single account selection for standalone -->
-                    <label [attr.for]="'accountId-' + $index">
+                    <!-- <label [attr.for]="'accountId-' + $index">
                       Select Account <span class="required">*</span>
-                    </label>
-                    <select
+                    </label> -->
+                    <!-- <select
                       [id]="'accountId-' + $index"
                       [name]="'accountId-' + $index"
                       [value]="request.accountIds[0] || ''"
@@ -179,19 +180,19 @@
                           {{ account.accountNumber }} - {{ account.currency }}
                         </option>
                       }
-                    </select>
+                    </select> -->
 
-                    @if (hasError('accountIds', $index)) {
+                    <!-- @if (hasError('accountIds', $index)) {
                       <div class="error-message">
                         {{ getErrorMessage('accountIds', $index) }}
                       </div>
-                    }
-                  } @else if (isMulticurrencyCategory($index)) {
+                    } -->
+                  <!-- } @else if (isMulticurrencyCategory($index)) { -->
                     <!-- Show USD Account for multicurrency -->
-                    <label [attr.for]="'usdAccountId-' + $index">
+                    <!-- <label [attr.for]="'usdAccountId-' + $index">
                       USD Account <span class="required">*</span>
-                    </label>
-                    <select
+                    </label> -->
+                    <!-- <select
                       [id]="'usdAccountId-' + $index"
                       [name]="'usdAccountId-' + $index"
                       [value]="getSelectedUsdAccountId($index)"
@@ -203,24 +204,24 @@
                           {{ account.accountNumber }}
                         </option>
                       }
-                    </select>
-                  }
+                    </select> -->
+                  <!-- } -->
 
-                  @if (isMulticurrencyCategory($index)) {
+                  <!-- @if (isMulticurrencyCategory($index)) {
                     <div class="multicurrency-note" style="margin-top: 8px; font-size: 0.9em; color: #666;">
                       <strong>Note:</strong> This category requires both ZWG and USD accounts
                     </div>
-                  }
-                </div>
-              </div>
+                  } -->
+                <!-- </div> -->
+              <!-- </div> -->
 
               <!-- Row 2: Location, Category, and Number of Machines -->
-              <div class="form-row">
-                <div class="form-group">
-                  <label [attr.for]="'location-' + $index">
+              <!-- <div class="form-row"> -->
+                <!-- <div class="form-group"> -->
+                  <!-- <label [attr.for]="'location-' + $index">
                     Location <span class="required">*</span>
-                  </label>
-                  <input
+                  </label> -->
+                  <!-- <input
                     [id]="'location-' + $index"
                     type="text"
                     [name]="'location-' + $index"
@@ -232,14 +233,14 @@
                     <div class="error-message">
                       {{ getErrorMessage('location', $index) }}
                     </div>
-                  }
-                </div>
+                  } -->
+                <!-- </div> -->
 
-                <div class="form-group">
-                  <label [attr.for]="'categoryId-' + $index">
+                <!-- <div class="form-group"> -->
+                  <!-- <label [attr.for]="'categoryId-' + $index">
                     Category <span class="required">*</span>
-                  </label>
-                  <select
+                  </label> -->
+                  <!-- <select
                     [id]="'categoryId-' + $index"
                     [name]="'categoryId-' + $index"
                     [(ngModel)]="request.categoryId"
@@ -251,21 +252,21 @@
                         {{ category.description }}
                       </option>
                     }
-                  </select>
+                  </select> -->
 
-                  @if (hasError('categoryId', $index)) {
+                  <!-- @if (hasError('categoryId', $index)) {
                     <div class="error-message">
                       {{ getErrorMessage('categoryId', $index) }}
                     </div>
-                  }
-                </div>
+                  } -->
+                <!-- </div> -->
 
                 <!-- NEW: Number of Machines Field -->
-                <div class="form-group">
-                  <label [attr.for]="'numberOfMachines-' + $index">
+                <!-- <div class="form-group"> -->
+                  <!-- <label [attr.for]="'numberOfMachines-' + $index">
                     Number of POS Machines <span class="required">*</span>
-                  </label>
-                  <input
+                  </label> -->
+                  <!-- <input
                     [id]="'numberOfMachines-' + $index"
                     type="number"
                     [name]="'numberOfMachines-' + $index"
@@ -273,24 +274,24 @@
                     placeholder="Enter number (1-50)"
                     min="1"
                     max="50"
-                    [class.error]="hasError('numberOfMachines', $index)" />
+                    [class.error]="hasError('numberOfMachines', $index)" /> -->
 
-                  @if (hasError('numberOfMachines', $index)) {
+                  <!-- @if (hasError('numberOfMachines', $index)) {
                     <div class="error-message">
                       {{ getErrorMessage('numberOfMachines', $index) }}
                     </div>
-                  }
-                  @if (request.numberOfMachines > 1) {
+                  } -->
+                  <!-- @if (request.numberOfMachines > 1) {
                     <div class="info-message" style="margin-top: 8px; font-size: 0.85em; color: #0066cc;">
                       <i class="bi bi-info-circle me-1"></i>
                       {{ request.numberOfMachines }} POS machines will be requested for this location
                     </div>
-                  }
-                </div>
-              </div>
+                  } -->
+                <!-- </div> -->
+              <!-- </div> -->
 
               <!-- Row 3: Merchant Category Code (full width) - Only show for Multicurrency -->
-              @if (isMulticurrencyCategory($index)) {
+              <!-- @if (isMulticurrencyCategory($index)) {
                 <div class="form-group full-width">
                   <label [attr.for]="'merchantCategoryCode-' + $index">
                     Merchant Category Code <span class="required">*</span>
@@ -314,18 +315,208 @@
                     </div>
                   }
                 </div>
-              }
+              } -->
 
               <!-- Error display for account validation (multicurrency) -->
-              @if (isMulticurrencyCategory($index) && hasError('accountIds', $index)) {
+              <!-- @if (isMulticurrencyCategory($index) && hasError('accountIds', $index)) {
                 <div class="error-message full-width">
                   {{ getErrorMessage('accountIds', $index) }}
                 </div>
-              }
+              } -->
 
-            </div>
+            <!-- </div> -->
+             <!-- end-old -->
+
+<!-- new -->
+ <div class="card-body">
+  <!-- Row 1: Primary Business Information -->
+  <div class="form-row">
+    <div class="form-group">
+      <label [attr.for]="'tradeName-' + $index">
+        Trade Name <span class="required">*</span>
+      </label>
+      <input
+        [id]="'tradeName-' + $index"
+        type="text"
+        [name]="'tradeName-' + $index"
+        [(ngModel)]="request.tradeName"
+        placeholder="Enter trade name"
+        [class.error]="hasError('tradeName', $index)" />
+      @if (hasError('tradeName', $index)) {
+        <div class="error-message">{{ getErrorMessage('tradeName', $index) }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label [attr.for]="'categoryId-' + $index">
+        Category <span class="required">*</span>
+      </label>
+      <select
+        [id]="'categoryId-' + $index"
+        [name]="'categoryId-' + $index"
+        [(ngModel)]="request.categoryId"
+        (change)="onCategoryChange($index)"
+        [class.error]="hasError('categoryId', $index)">
+        <option value="">-- Select Category --</option>
+        @for (category of categories; track category.id) {
+          <option [value]="category.id">{{ category.description }}</option>
+        }
+      </select>
+      @if (hasError('categoryId', $index)) {
+        <div class="error-message">{{ getErrorMessage('categoryId', $index) }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label [attr.for]="'merchantCategoryCode-' + $index">
+        Merchant Category Code <span class="required">*</span>
+      </label>
+      <select
+        [id]="'merchantCategoryCode-' + $index"
+        [name]="'merchantCategoryCode-' + $index"
+        [(ngModel)]="request.merchantCategoryCode"
+        [class.error]="hasError('merchantCategoryCode', $index)">
+        <option value="">--Select MCC--</option>
+        @for (mcc of merchantCategoryCodes; track mcc.code) {
+          <option [value]="mcc.code">{{ mcc.name }}</option>
+        }
+      </select>
+      @if (hasError('merchantCategoryCode', $index)) {
+        <div class="error-message">{{ getErrorMessage('merchantCategoryCode', $index) }}</div>
+      }
+    </div>
+  </div>
+
+  <!-- Row 2: Location & Machine Details -->
+  <div class="form-row">
+    <div class="form-group">
+      <label [attr.for]="'location-' + $index">
+        Location <span class="required">*</span>
+      </label>
+      <input
+        [id]="'location-' + $index"
+        type="text"
+        [name]="'location-' + $index"
+        [(ngModel)]="request.location"
+        placeholder="Enter location"
+        [class.error]="hasError('location', $index)" />
+      @if (hasError('location', $index)) {
+        <div class="error-message">{{ getErrorMessage('location', $index) }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label [attr.for]="'numberOfMachines-' + $index">
+        Number of POS Machines <span class="required">*</span>
+      </label>
+      <input
+        [id]="'numberOfMachines-' + $index"
+        type="number"
+        [name]="'numberOfMachines-' + $index"
+        [(ngModel)]="request.numberOfMachines"
+        placeholder="1-50"
+        min="1"
+        max="50" />
+      @if (request.numberOfMachines > 1) {
+        <div class="info-message" style="margin-top: 8px; font-size: 0.85em; color: #0066cc;">
+          <i class="bi bi-info-circle me-1"></i>
+          {{ request.numberOfMachines }} POS machines will be requested
+        </div>
+      }
+    </div>
+
+    <!-- Placeholder for alignment if needed -->
+    <div class="form-group d-none d-md-block"></div>
+  </div>
+
+  <!-- Row 3: Account Selection (Dynamic Layout) -->
+  <div class="account-selection-container" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; margin-top: 10px;">
+
+    @if (!isMulticurrencyCategory($index) && request.categoryId) {
+      <!-- Single Currency Layout -->
+      <div class="form-group mb-0">
+        <label [attr.for]="'accountId-' + $index" style="font-weight: 600;">
+          Settlement Account <span class="required">*</span>
+        </label>
+        <select
+          [id]="'accountId-' + $index"
+          [name]="'accountId-' + $index"
+          [value]="request.accountIds[0] || ''"
+          (change)="onSingleAccountSelect($event, $index)"
+          [class.error]="hasError('accountIds', $index)">
+          <option value="">-- Select Account --</option>
+          @for (account of getFilteredAccounts($index); track account.id) {
+            <option [value]="account.id">
+              {{ account.accountNumber }} - {{ account.currency }}
+            </option>
+          }
+        </select>
+      </div>
+    }
+
+    @else if (isMulticurrencyCategory($index)) {
+      <!-- Multicurrency Layout: Side-by-Side Accounts -->
+      <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <i class="bi bi-currency-exchange text-success"></i>
+        <span style="font-weight: 600; color: #495057;">Multicurrency Settlement Setup</span>
+      </div>
+
+      <div class="form-row" style="margin-bottom: 0;">
+        <!-- ZWG Account -->
+        <div class="form-group">
+          <label [attr.for]="'zwgAccountId-' + $index" style="color: #495057; font-size: 0.85rem;">
+            ZWG Account (Local) <span class="required">*</span>
+          </label>
+          <select
+            [id]="'zwgAccountId-' + $index"
+            [name]="'zwgAccountId-' + $index"
+            [value]="getSelectedZwgAccountId($index)"
+            (change)="onZwgAccountSelect($event, $index)"
+            [class.error]="hasError('accountIds', $index)">
+            <option value="">-- Select ZWG Account --</option>
+            @for (account of getFilteredAccounts($index, 'ZWG'); track account.id) {
+              <option [value]="account.id">{{ account.accountNumber }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- USD Account -->
+        <div class="form-group">
+          <label [attr.for]="'usdAccountId-' + $index" style="color: #495057; font-size: 0.85rem;">
+            USD Account (Foreign) <span class="required">*</span>
+          </label>
+          <select
+            [id]="'usdAccountId-' + $index"
+            [name]="'usdAccountId-' + $index"
+            [value]="getSelectedUsdAccountId($index)"
+            (change)="onUsdAccountSelect($event, $index)"
+            [class.error]="hasError('accountIds', $index)">
+            <option value="">-- Select USD Account --</option>
+            @for (account of getFilteredAccounts($index, 'USD'); track account.id) {
+              <option [value]="account.id">{{ account.accountNumber }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="multicurrency-note" style="margin-top: 10px; padding: 8px 12px; background: #e7f3ff; border-left: 4px solid #0dfd99; font-size: 0.85rem; color: #089874;">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        This category requires both <strong>ZWG</strong> and <strong>USD</strong> accounts for multicurrency processing.
+      </div>
+    }
+
+    <!-- Validation Error for Accounts -->
+    @if (hasError('accountIds', $index)) {
+      <div class="error-message" style="margin-top: 10px;">
+        {{ getErrorMessage('accountIds', $index) }}
+      </div>
+    }
+  </div>
+</div>
+
           </div>
         }
+
       </div>
 
       <div class="form-actions">

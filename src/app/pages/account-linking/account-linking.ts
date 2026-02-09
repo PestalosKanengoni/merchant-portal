@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountLinkingService } from '../../services/account-linkingService';
 import { CommonModule, Location } from '@angular/common';
@@ -7,7 +7,7 @@ import { StorageService } from '../../services/storage';
 
 @Component({
   selector: 'app-account-linking',
-  imports: [[CommonModule, ReactiveFormsModule]],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './account-linking.html',
   styleUrl: './account-linking.css',
 })
@@ -21,17 +21,13 @@ export class AccountLinking  {
   errorMessage = '';
   linkedAccounts: any[] = [];
 
-  // constructor(private posService: PosApplicationServ,
-  //   private cdr: ChangeDetectorRef,
-  //    private auth: Auth,
-  //   private storageService: StorageService ) {}
-
   constructor(
     private fb: FormBuilder,
     private accountLinkingService: AccountLinkingService,
     private auth: Auth,
     private storageService: StorageService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   )
 
 {
@@ -45,30 +41,13 @@ export class AccountLinking  {
     //this.loadLinkedAccounts();
   }
 
-  /**
-   * Load existing linked accounts
-   */
-  // loadLinkedAccounts(): void {
-  //   this.accountLinkingService.getLinkedAccounts().subscribe({
-  //     next: (response) => {
-  //       if (response.success) {
-  //         this.linkedAccounts = response.data || [];
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error loading linked accounts:', error);
-  //     }
-  //   });
-  // }
-
-  /**
-   * Handle form submission
-   */
   onSubmit(): void {
     if (this.linkAccountForm.valid) {
       this.isLoading = true;
       this.successMessage = '';
       this.errorMessage = '';
+
+      this.cdr.detectChanges();
 
       const accountValue = this.linkAccountForm.get('account')?.value;
 
@@ -83,6 +62,8 @@ export class AccountLinking  {
           } else {
             this.errorMessage = response.responseDescription || 'Failed to link account';
           }
+
+          this.cdr.detectChanges();
         },
         error: (error) => {
           this.isLoading = false;
@@ -99,10 +80,13 @@ export class AccountLinking  {
           }
 
           console.error('Full error details:', error);
+
+          this.cdr.detectChanges();
         }
       });
     } else {
       this.errorMessage = 'Please enter a valid account';
+      this.cdr.detectChanges();
     }
   }
 
