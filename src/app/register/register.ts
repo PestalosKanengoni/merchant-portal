@@ -15,16 +15,6 @@ import { SubscriptionsManager } from '../helpers/subscriptionsManager';
 })
 export class Register implements OnInit {
 
-  ngOnInit(): void {
-    // this.sub.add = this.authService.register$.subscribe(
-    //   (response:any)=> {
-    //     console.log('response', response)
-    //   }
-    // )
-  }
-  // Update form to match your changePassword endpoint requirements
-
-  sub =  new SubscriptionsManager();
 
 
   form: any = {
@@ -41,14 +31,31 @@ export class Register implements OnInit {
   private router = inject(Router);
   private storageService = inject(StorageService);
 
+  ngOnInit(): void {
+        // Set flag to indicate password change is in progress
+    sessionStorage.setItem('isChangingPassword', 'true');
+
+    // Prevent browser back button
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', this.preventBackButton);
+  }
+  // Update form to match your changePassword endpoint requirements
+
+  sub =  new SubscriptionsManager();
+
+  ngOnDestroy(): void {
+    // Clean up event listener
+    window.removeEventListener('popstate', this.preventBackButton);
+
+  }
+
+  preventBackButton = (): void => {
+
+   history.pushState(null, '', window.location.href);
+  }
+
   onSubmit(): void {
     const { currentPassword, newPassword, confirmationPassword } = this.form;
-
-    // const reg = {
-    //   currentPassword: this.form.currentPassword,
-    //   newPassword: this.form.newPassword,
-    //   confirmationPassword: this.form.confirmationPassword}
-
 
     if (newPassword !== confirmationPassword) {
       this.errorMessage = "Passwords do not match!";

@@ -22,17 +22,13 @@ export class Login implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  isLoading = false;
 
 
   constructor(private authService: Auth, private storageService: StorageService, private router: Router) { }
 
    ngOnInit(): void {
-    // if (this.storageService.isLoggedIn()) {
-    //   this.isLoggedIn = true;
-    //   this.roles = this.storageService.getUser().roles;
-    // }else{
-    //   this.isLoggedIn = false;
-    // }
+
   }
 
   onSubmit(): void {
@@ -40,13 +36,30 @@ export class Login implements OnInit {
 
   this.authService.login(username, password).subscribe({
     next: (data) => {
-      this.storageService.saveUser(data);
+
+
+      if (data.responseCode) {
+          // This is an error response from backend
+          this.errorMessage = data.responseDescription || 'Invalid username or password';
+          this.isLoginFailed = true;
+          this.isLoggedIn = false;
+          this.storageService.clean();
+          return;
+        }
+
+        // Check if response has the expected success structure
+        if (!data.accessToken || !data.user) {
+          this.errorMessage = 'Invalid response from server';
+          this.isLoginFailed = true;
+          this.isLoggedIn = false;
+          return;
+        }
+
+        this.storageService.saveUser(data);
 
       const token = this.storageService.getToken();
       console.log('Token after login:', token);
 
-      this.isLoginFailed = false;
-      this.isLoggedIn = true;
 
       // 1. Check for expired password first
       if (data.user && data.user.passwordExpired === true) {
@@ -55,58 +68,22 @@ export class Login implements OnInit {
       }
 
       this.router.navigate(['/verify-otp']);
-
-      // 2. Role-Based Redirection
-      // const userRoles = data.user.roles || [];
-
-      // // We extract the 'role' string from the first object in the array
-      // const primaryRole = userRoles.length > 0 ? userRoles[0].role : null;
-
-      // switch (primaryRole) {
-      //   case 'SOLE_TRADER':
-      //     this.router.navigate(['/sole-trader']);
-      //     break;
-      //   case 'POSMAN':
-      //     this.router.navigate(['/posman-dashboard']);
-      //     break;
-      //   case 'ADMIN':
-      //     this.router.navigate(['/admin-panel']);
-      //     break;
-      //   default:
-      //     // Fallback if no specific role matches
-      //     this.router.navigate(['/dashboard']);
-      //     break;
-      // }
     },
     error: (err) => {
-      this.errorMessage = err.error.message || 'Login failed';
-      this.isLoginFailed = true;
+      console.error('Login error:', err);
+
+        // Handle error response
+        this.errorMessage = err.error?.responseDescription ||
+                           err.error?.message ||
+                           'Invalid username or password';
+        this.isLoginFailed = true;
+        this.isLoggedIn = false;
+
+        // Clear any stored data
+        this.storageService.clean();
     }
   });
 
-
-    // this.authService.login(username, password).subscribe({
-    //   next: (data) => {
-    //     // Save user to storage (includes accessToken and user object)
-    //     this.storageService.saveUser(data);
-
-    //     this.isLoginFailed = false;
-    //     this.isLoggedIn = true;
-
-    //     // 3. Check if password has expired
-    //     if (data.user && data.user.passwordExpired === true) {
-    //       // Redirect to the register/change-password page
-    //       this.router.navigate(['/register']);
-    //     } else {
-    //       // Standard redirect to dashboard
-    //       this.router.navigate(['/dashboard']);
-    //     }
-    //   },
-    //   error: (err) => {
-    //     this.errorMessage = err.error.message;
-    //     this.isLoginFailed = true;
-    //   }
-    // });
   }
 
 

@@ -31,35 +31,7 @@ export class OtpVerification {
       this.storageService.setOtpVerified(true);
 
       this.router.navigate(['/merchant-overview'],  { replaceUrl: true });
-
-      // const storedData = this.storageService.getUser();
-
-      // const user = storedData?.user ? storedData.user : storedData;
-
-      // const roles = user?.roles || [];
-
-      // const primaryRole = roles.length > 0 ? roles[0].role : null;
-
-      // NOW we redirect
-      // switch (primaryRole) {
-      //   case 'SOLE_TRADER':
-      //     this.router.navigate(['/account-linking']);
-      //     break;
-      //   case 'POSMAN':
-      //     this.router.navigate(['/posman-dashboard']);
-      //     break;
-      //   default:
-      //     this.router.navigate(['/dashboard']);
-      //     break;
-      // }
       },
-      // error: (err) => {
-      //   if (err?.error?.responseCode === '006') {
-      //   this.errorMessage = err.error.responseDescription || "Invalid OTP or OTP has expired";
-      // } else {
-      //   this.errorMessage = "An error occurred. Please try again.";
-      // }
-      // }
     });
   }
 

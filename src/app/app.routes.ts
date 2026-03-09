@@ -12,16 +12,6 @@ import { MerchantOverview } from './pages/merchant-overview/merchant-overview';
 
 export const routes: Routes = [
 
-  // { path: '', redirectTo: 'login', pathMatch: 'full',},
-  // { path: 'login', component: Login },
-  // {path: 'register',component: Register,canActivate: [authGuard]},
-  // {path: 'dashboard',component: Dashboard,canActivate: [authGuard]},
-  // { path: 'sole-trader', component: SoleTrader },
-  // { path: 'pos-application', component: PosApplication,canActivate: [authGuard] },
-  // { path: 'verify-otp', component: OtpVerification, canActivate: [authGuard] },
-  // { path: 'account-linking', component: AccountLinking, canActivate: [authGuard] },
-  // {path: 'merchant-overview', component: MerchantOverview, canActivate: [authGuard]}
-
   {
     path: '',
     redirectTo: 'login',
@@ -40,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'merchant-overview',
     loadComponent: () => import('./pages/merchant-overview/merchant-overview').then(m => m.MerchantOverview),
-    canActivate: [authGuard]
+    canActivate: [authGuard, passwordCheckGuard]
   },
   {
     path: 'sole-trader',
@@ -65,10 +55,15 @@ export const routes: Routes = [
     path: 'pos-stats',
     loadComponent: () => import('./pages/pos-stats/pos-stats').then(m => m.PosStats),
     canActivate: [authGuard]
+  },
+  {
+    path: 'pos-applications',
+    loadComponent: () => import('./pages/pos-applications/pos-applications').then(m => m.PosApplications),
+    canActivate: [authGuard]
   }
 ]
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

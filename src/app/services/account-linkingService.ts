@@ -13,6 +13,21 @@ export interface LinkAccountResponse {
   data?: any;
 }
 
+export interface LinkedAccount {
+  id: string;
+  accountNumber: string;
+  accountName: string;
+  currency: string;
+  customerId: string;
+  isPrimary: boolean;
+}
+
+export interface GetLinkedAccountsResponse {
+  responseCode: string;
+  responseDescription: string;
+  data?: LinkedAccount[];
+}
+
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +58,18 @@ export class AccountLinkingService {
     return this.http.post<LinkAccountResponse>(
       `${this.apiUrl}/link-account`,
       body,
+      { headers }
+    );
+  }
+
+   getLinkedAccounts(): Observable<GetLinkedAccountsResponse> {
+    const token = this.storageService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<GetLinkedAccountsResponse>(
+      `${this.apiUrl}/accounts`,
       { headers }
     );
   }

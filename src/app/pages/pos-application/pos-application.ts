@@ -8,6 +8,7 @@ import { catchError, finalize, of, tap } from 'rxjs';
 import { Auth } from '../../services/auth';
 import { Location } from '@angular/common';
 import { StorageService } from '../../services/storage';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pos-application',
@@ -18,6 +19,9 @@ import { StorageService } from '../../services/storage';
 export class PosApplication implements OnInit {
 
    userEmail: string = '';
+
+   locations: string[] = [];
+
 
     posApplicationForm = {
     remarks: '',
@@ -53,14 +57,18 @@ export class PosApplication implements OnInit {
 
   constructor(private posService: PosApplicationServ,
     private cdr: ChangeDetectorRef,
-     private auth: Auth,
+    private auth: Auth,
     private storageService: StorageService,
-  private location: Location ) {}
+    private location: Location,
+    private http: HttpClient ) {}
+
+
 
   ngOnInit(): void {
     this.loadDropdownData();
     this.initializeValidationErrors();
     this.userEmail = this.storageService.getUserEmail() || 'Unknown User';
+     this.loadLocations();
   }
 
 /**
@@ -638,5 +646,17 @@ onLogout() {
     // Option 2: Navigate to specific route (e.g., dashboard)
     // this.router.navigate(['/dashboard']);
   }
+
+    loadLocations(): void {
+  this.http.get<string[]>('http://192.168.4.13:8099/api/merchant/getLocation')
+    .subscribe({
+      next: (data) => {
+        this.locations = data;
+      },
+      error: (err) => {
+        console.error('Failed to load locations', err);
+      }
+    });
+}
 
 }

@@ -281,3 +281,61 @@
 .bg-success-subtle {
   background-color: #d1e7dd !important;
 }
+
+.linked-accounts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
+}
+
+.account-item:last-child {
+  border-bottom: none;
+}
+
+.account-item:hover {
+  background-color: #f8f9fa;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+}
+
+.account-number {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #212529;
+}
+
+.account-status {
+  display: flex;
+  align-items: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #198754;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.empty-state {
+  padding: 2rem;
+}

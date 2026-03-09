@@ -48,10 +48,10 @@ export class PosStats implements OnInit, AfterViewInit, OnDestroy {
   ){}
 
   // User data
-  userName = 'John Doe';
-  userRole = 'Store Manager';
+  userName = 'John';
+  userRole = ' Manager';
   userLocation = 'Main Branch';
-  userInitials = 'JD';
+  userInitials = 'M';
 
   // Date range
   selectedDateRange = 'week';

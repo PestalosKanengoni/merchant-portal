@@ -115,13 +115,14 @@ export class PosApplicationServ {
   /**
    * Get POS applications (if you have an endpoint to fetch existing applications)
    */
-  getPosApplications(): Observable<PosApplicationRequest[]> {
-    const url = `${this.baseUrl}/pos-application`;
 
-    return this.http.get<ApiResponse<PosApplicationRequest[]>>(url, { headers: this.getHeaders() }).pipe(
+  getPosApplications(): Observable<any> {
+    const url = `${this.baseUrl}/applications`;
+
+    return this.http.get<any>(url, { headers: this.getHeaders() }).pipe(
       map(response => {
         console.log('POS applications fetched:', response);
-        return response.data;
+        return response; // Return the entire response object
       }),
       catchError(error => {
         console.error('Error fetching POS applications:', error);
@@ -129,5 +130,7 @@ export class PosApplicationServ {
       })
     );
   }
+
+
 
 }
