@@ -1,4 +1,4 @@
-<div class="login-wrapper d-flex flex-column"> <div class="container mt-5">
+<!-- <div class="login-wrapper d-flex flex-column"> <div class="container mt-5">
     <div class="row">
       <div class="col-12 text-center">
         <h1 class="portal-heading fw-bold">WELCOME TO AFC MERCHANT PORTAL</h1>
@@ -77,5 +77,41 @@
       </div>
 
     </div>
+  </div>
+</div> -->
+
+<div class="login-screen">
+  <div class="login-card">
+
+     <div class="login-logo">
+      <img src="logo.png" alt="AFC Commercial Bank" class="logo-img">
+    </div>
+
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-group custom-input">
+        <label>Email</label>
+        <input
+        type="text"
+        name = "username"
+        [(ngModel)]="form.username"
+        placeholder="user@afcholdings.co.zw">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+        type="password"
+        name = "password"
+        [(ngModel)]="form.password"
+         placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;">
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? "Signing in..." : "Access System" }}
+      </button>
+    </form>
+
+    <div class="login-hint">example: <span>user&#64;afcholdings.co.zw</span></div>
   </div>
 </div>
